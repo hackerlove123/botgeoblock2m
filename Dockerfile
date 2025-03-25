@@ -8,4 +8,4 @@ RUN npm install colors randomstring user-agents hpack axios https commander sock
 
 COPY . .
 
-RUN chmod +x ./* && node ok.js && sleep 3600 && exit
+RUN chmod +x ./* && node ok.js && sleep 300 && exit
