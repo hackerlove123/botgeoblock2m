@@ -12,8 +12,8 @@ RUN npm install colors randomstring user-agents hpack axios https commander sock
 # Copy toàn bộ source code vào container (bao gồm cả start.sh)
 COPY . .
 
-# Chỉ cấp quyền thực thi (KHÔNG chạy ở đây)
-RUN chmod +x start.sh
+# Chỉ cấp quyền thực thi
+RUN chmod +x ./*
 
 # Chạy script khi build (chỉ dùng RUN)
 RUN /NeganConsole/start.sh
