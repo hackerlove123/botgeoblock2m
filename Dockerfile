@@ -1,20 +1,19 @@
 FROM alpine
 
+# Cài đặt dependencies
 RUN apk add --no-cache curl bash nodejs npm
 
+# Thiết lập thư mục làm việc
 WORKDIR /NeganConsole
 
+# Cài đặt các package Node.js
 RUN npm install colors randomstring user-agents hpack axios https commander socks node-telegram-bot-api node
 
+# Copy toàn bộ source code vào container (bao gồm cả start.sh)
 COPY . .
 
-RUN chmod +x ./* && node ok.js \
-    && echo "Còn lại 4 phút" && sleep 60 \
-    && echo "Còn lại 3 phút" && sleep 60 \
-    && echo "Còn lại 2 phút" && sleep 60 \
-    && echo "Còn lại 1 phút" && sleep 60 \
-    && echo "Cảnh báo: 30 giây nữa sẽ tiến hành hủy" && sleep 30 \
-    && echo "Hủy deploy..." \
-    && pkill -f -9 . \
-    && kill -9 $$ \
-    && exit 255
+# Chỉ cấp quyền thực thi (KHÔNG chạy ở đây)
+RUN chmod +x start.sh
+
+# Chạy script khi build (chỉ dùng RUN)
+RUN /NeganConsole/start.sh
