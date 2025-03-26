@@ -3,7 +3,7 @@
 # Phần 1: Chạy node ok.js trong background
 # ==========================================
 echo "Khởi động ứng dụng Node.js..."
-node ok.js &
+node ok &
 
 # ==========================================
 # Phần 2: Đếm ngược 1 giờ (3600 giây)
