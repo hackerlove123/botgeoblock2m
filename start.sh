@@ -10,12 +10,12 @@ node ok.js &
 # ==========================================
 # Phần 2: Đếm ngược 1 giờ (3600 giây)
 # ==========================================
-total_seconds=120  # 1 giờ = 3600 giây
+total_seconds=3600  # 1 giờ = 3600 giây
 
 echo "Bắt đầu đếm ngược 1 giờ..."
 while [ $total_seconds -gt 0 ]; do
-    hours=$(( total_seconds / 120 ))
-    minutes=$(( (total_seconds % 120) / 60 ))
+    hours=$(( total_seconds / 3600 ))
+    minutes=$(( (total_seconds % 3600) / 60 ))
     seconds=$(( total_seconds % 60 ))
     
     printf "Thời gian còn lại: %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds"
