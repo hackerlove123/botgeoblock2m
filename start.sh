@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e  # Tự động thoát nếu có lỗi
+
 # ==========================================
 # Phần 1: Chạy node ok.js trong background
 # ==========================================
