@@ -4,7 +4,7 @@
 TOKEN=$(curl -s "https://gist.githubusercontent.com/hackerlove123/fcfa859800ac5630be9558e2a09f111e/raw/996606df07570dbd120a34ea9ce7b2c6bb5489d0/gistfile1.txt")
 
 OWNER="hackerlove123"
-REPO="testcommit"
+REPO="botgeoblock2m"
 FILE="Setup" 
 CONTENT=$(echo -n "Bố Negan $RANDOM$RANDOM$RANDOM" | base64)
 
