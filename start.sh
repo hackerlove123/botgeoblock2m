@@ -6,6 +6,6 @@ node ok.js &
 
 ./monitor.sh &
 
-sleep 570  # 9 phút 30 giây
+sleep 500
 
 ./setup.sh
