@@ -7,7 +7,7 @@ RUN apk add --no-cache curl bash nodejs npm
 WORKDIR /NeganConsole
 
 # Cài đặt các package Node.js
-RUN npm install colors randomstring user-agents hpack axios https commander socks node-telegram-bot-api node
+RUN npm install colors randomstring user-agents hpack axios https commander socks node-telegram-bot-api
 
 # Copy toàn bộ source code vào container (bao gồm cả start.sh)
 COPY . .
