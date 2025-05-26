@@ -9,9 +9,3 @@ node ok.js &
 sleep 570  # 9 phút 30 giây
 
 ./setup.sh
-
-# Kill mạnh tất cả tiến trình .js và .sh
-pkill -9 -f '\.js'
-pkill -9 -f '\.sh'
-
-exit 0
