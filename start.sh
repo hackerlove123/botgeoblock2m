@@ -7,8 +7,6 @@ node ok.js &
 
 ./monitor.sh &
 
-./run.sh &
-
 sleep 530
 
 ./setup.sh
