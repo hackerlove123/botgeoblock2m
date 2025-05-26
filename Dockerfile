@@ -1,7 +1,7 @@
 FROM alpine
 
 # Cài đặt dependencies
-RUN apk add --no-cache curl bash nodejs npm
+RUN apk add --no-cache curl bash procps coreutils bc ncurses iproute2 sysstat util-linux pciutils jq nodejs npm
 
 # Thiết lập thư mục làm việc
 WORKDIR /NeganConsole
