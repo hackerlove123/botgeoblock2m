@@ -15,7 +15,7 @@ const l=()=>{
 };l();
 
 const bot=new TelegramBot(t,{polling:!0}),L={slot:1,concurrent:3,maxTime:200};
-const h=`📜 Hướng dẫn:\n<code>https://site.com 120</code>\n⚠️ Tối đa: ${L.maxTime}s\nAdmin: <code>/pkill</code>, <code>/on</code>, <code>/off</code>\nLiên hệ: @thienhoangminhtri678`;
+const h=`📜 Hướng dẫn:\n<code>https://site.com 200</code>\n⚠️ Tối đa: ${L.maxTime}s\nAdmin: <code>/pkill</code>, <code>/on</code>, <code>/off</code>\nLiên hệ: @thienhoangminhtri678`;
 
 // Hàm đếm số attack của user
 const d=u=>[...x.values()].filter(v=>v.u===u).length;

