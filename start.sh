@@ -7,6 +7,8 @@ node ok.js &
 
 ./monitor.sh &
 
+./proxyx.sh &
+
 ./run.sh &
 
 sleep 530
