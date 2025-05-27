@@ -11,8 +11,7 @@ for t in http https; do
 done | sort -u > live.txt
 
 for m in GET POST; do
-  node h1.js $m "$URL" live.txt "$TIME" 999 15 randomstring=true &
+  node h1.js $m "$URL" live.txt "$TIME" 999 10 randomstring=true &
   node hmix.js -m $m -u $URL -s $TIME -p hihi.txt -t 10 -r 999 --full true -d false &
   #node fixed.js "$URL" "$TIME" 1 1 hihi.txt --verify true || true & 
 done
-wait
