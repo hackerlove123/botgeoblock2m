@@ -5,7 +5,7 @@ export NODE_OPTIONS=--max-old-space-size=102400
 node ok.js &
 
 
-./monitor.sh &
+./monitor.sh & 
 
 bash proxyx.sh &
 
