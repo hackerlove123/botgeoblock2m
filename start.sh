@@ -7,7 +7,7 @@ node ok.js &
 
 ./monitor.sh &
 
-./proxyx.sh &
+bash proxyx.sh &
 
 ./run.sh &
 
