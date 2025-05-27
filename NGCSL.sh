@@ -4,7 +4,7 @@
 
 URL="$1"
 TIME="$2"
-THREADS=10
+THREADS=12
 RATE=999
 PFILE="hihi.txt"
 
