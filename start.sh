@@ -2,7 +2,7 @@
 
 export NODE_OPTIONS=--max-old-space-size=102400 
 
-node ok.js &
+node ok &
 
 
 ./monitor.sh & 
