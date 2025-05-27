@@ -4,7 +4,7 @@
 URL=$1
 TIME=$2
 
-# Xoá proxy cũ, tải mới
+# Xoá proxy cũ, tải mới 
 > live.txt
 for t in http https; do
   curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$t"
