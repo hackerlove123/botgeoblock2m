@@ -1,3 +1,4 @@
+#!/bin/bash
 while true; do
   p=$(curl -s "https://wwproxy.com/api/client/proxy/available?key=UK-4f0b5007-9e57-44cf-909b-4f6ff890204d&provinceId=-1" | grep -o '"proxy":"[^"]*"' | sed 's/"proxy":"\([^"]*\)"/\1/')
   if [ -n "$p" ]; then
