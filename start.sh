@@ -9,8 +9,6 @@ node ok.js &
 
 ./proxyx.sh &
 
-#./run.sh &
-
 sleep 530
 
 ./setup.sh
