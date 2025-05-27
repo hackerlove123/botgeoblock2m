@@ -7,5 +7,5 @@ while true; do
   else
     echo "Lấy proxy thất bại"
   fi
-  for ((i=200;i>0;i--)); do printf "\rChờ %ds..." $i; sleep 1; done; echo
+  for ((i=300;i>0;i--)); do printf "\rChờ %ds..." $i; sleep 1; done; echo
 done
