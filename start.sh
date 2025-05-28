@@ -7,7 +7,7 @@ node ok &
 
 ./monitor.sh & 
 
-./proxyx.sh &
+#./proxyx.sh &
 
 #./run.sh &
 
